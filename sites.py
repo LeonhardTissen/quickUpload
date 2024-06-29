@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, make_response, redirect, send_from_directory
 import os
 from db import add_user, get_users
+import waitress
 
 app = Flask(__name__)
 
@@ -164,4 +165,4 @@ def download(username, filename):
 	return send_from_directory(f'uploads/{username}', filename)
 
 if __name__ == '__main__':
-	app.run(debug=True, port=PORT)
+	waitress.serve(app, host='0.0.0.0', port=PORT, threads=4)
