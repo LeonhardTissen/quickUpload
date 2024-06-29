@@ -5,7 +5,6 @@ from db import add_user, get_users
 app = Flask(__name__)
 
 PORT = 5776
-BASE_URL = 'http://localhost:5776'
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -56,7 +55,7 @@ def dashboard():
 				for file in filelist:
 					files.append({
 						'filename': file,
-						'url': f'{BASE_URL}/{username}/{file}'
+						'url': f'/{username}/{file}'
 					})
 				print(username, files, admin)
 				return render_template('dashboard.html.j2', username=username, id=id, files=files, admin=admin)
