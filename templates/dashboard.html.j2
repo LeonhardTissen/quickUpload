@@ -6,21 +6,11 @@
 
 <header>
 	<p><span>{{ username }}</span> (ID: <span>{{ id }}</span>)</p>
+	{% if admin == 1 %}
+	<a href="/users">Users</a>
+	{% endif %}
 	<a href='/logout'>Logout</a>
 </header>
-
-{% if admin == 1 %}
-<hr>
-
-<p>
-	<u>Create new user:</u>
-</p>
-<form action='/create_user' method='post'>
-	<input type='text' name='username' placeholder='Username' required>
-	<input type='password' name='password' placeholder='Password' required>
-	<button type='submit'>Create user</button>
-</form>
-{% endif %}
 
 <hr>
 
