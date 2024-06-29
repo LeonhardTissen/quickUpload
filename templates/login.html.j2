@@ -3,10 +3,16 @@
 {% block title %}Uploader - Login{% endblock %}
 
 {% block content %}
+<p>
+	<u>Login</u>
+</p>
 <form action='/' method='post'>
-	{% if message %} <p>{{ message }}</p> {% endif %}
 	<input type='text' name='username' placeholder='Username' required>
 	<input type='password' name='password' placeholder='Password' required>
 	<button type='submit'>Login</button>
 </form>
+{% if message %}
+<hr>
+<p>{{ message }}</p>
+{% endif %}
 {% endblock %}

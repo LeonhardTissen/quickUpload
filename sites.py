@@ -1,49 +1,11 @@
 from flask import Flask, render_template, request, make_response, redirect, send_from_directory
 import os
-import sqlite3
+from db import add_user, get_users
 
 app = Flask(__name__)
 
 PORT = 5776
 BASE_URL = 'http://localhost:5776'
-
-def create_table():
-	conn = sqlite3.connect('users.db')
-	c = conn.cursor()
-	c.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, admin INTEGER)')
-	conn.commit()
-	conn.close()
-
-def add_user(username, password, admin=0):
-	conn = sqlite3.connect('users.db')
-	c = conn.cursor()
-	try:
-		c.execute('INSERT INTO users VALUES (?, ?, ?, ?)', (None, username, password, admin))
-		conn.commit()
-	except sqlite3.IntegrityError:
-		raise sqlite3.IntegrityError
-	conn.close()
-
-def get_users():
-	conn = sqlite3.connect('users.db')
-	c = conn.cursor()
-	c.execute('SELECT * FROM users')
-	users = c.fetchall()
-	conn.close()
-	return {username: {
-		'id': id,
-		'password': password,
-		'admin': admin
-	} for id, username, password, admin in users}
-
-def init():
-	if not os.path.exists('users.db'):
-		create_table()
-		admin = input('Enter admin username: ')
-		password = input('Enter admin password: ')
-		add_user(admin, password, 1)
-
-init()
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -170,7 +132,7 @@ def create_user():
 				try:
 					add_user(new_username, new_password)
 					return render_template('redirect.html.j2', message='User created')
-				except sqlite3.IntegrityError:
+				except:
 					return render_template('redirect.html.j2', message='User already exists')
 					
 
