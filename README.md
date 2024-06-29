@@ -1,6 +1,6 @@
 # quickUpload
 
-quickUpload is a simple Flask-based web application that allows users to upload, download, and delete files. It features a login system and each user has their own dedicated upload directory.
+quickUpload is a simple Flask-based web application that allows users to upload, download, share and delete files. It features a login system and each user has their own dedicated upload directory.
 
 ## Installation
 
@@ -26,6 +26,9 @@ python3 sites.py
 ```
 
 2. Enter Admin credentials
+
+> [!NOTE]
+> Only the admin can create new users
 
 3. Navigate to `http://localhost:5776/` in your web browser
 
