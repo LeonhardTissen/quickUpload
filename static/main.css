@@ -1,0 +1,88 @@
+:root {
+	--color: rgb(121, 255, 186);
+	--color-low: rgb(121, 255, 186, 0.2);
+	--bg: #000;
+	--text: #FFF;
+	--omit: rgb(190, 190, 190);
+}
+body {
+	background-color: var(--bg);
+	color: var(--text);
+	font: 16px/1.5 sans-serif;
+	background-image: url('/static/bg.png');
+	margin: 0;
+	padding: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	animation: bgscroll 6s linear infinite;
+}
+@keyframes bgscroll {
+	from {
+		background-position: 0 0;
+	}
+	to {
+		background-position: 128px 128px;
+	}
+}
+main {
+	background-color: #7773;
+	backdrop-filter: blur(10px);
+	border-radius: 5px;
+	box-shadow: 5px 5px 30px var(--color-low);
+	padding: 20px;
+	width: 300px;
+	border: 2px var(--color) solid;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+form input[type="text"], form input[type="password"] {
+	padding: 5px;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	font-size: 125%;
+	background-color: transparent;
+	color: white;
+}
+form input[type="file"] {
+	font-size: 125%;
+}
+form button {
+	padding: 5px;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	font-size: 125%;
+	background-color: transparent;
+	color: white;
+	cursor: pointer;
+	background: linear-gradient(200deg, #FFF1, #FFF4);
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
+p {
+	text-align: center;
+	margin: 0;
+}
+p span, a {
+	color: var(--color);
+}
+u {
+	margin-bottom: 6px;
+	display: block;
+	color: var(--omit);
+}
+header {
+	display: flex;
+	justify-content: space-between;
+}
+#files {
+	display: flex;
+	flex-direction: column;
+}
+#files .file {
+	display: flex;
+	justify-content: space-between;
+}

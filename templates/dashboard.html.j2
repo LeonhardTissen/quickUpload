@@ -1,0 +1,53 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Uploader - Dashboard{% endblock %}
+
+{% block content %}
+
+<header>
+	<p><span>{{ username }}</span> (ID: <span>{{ id }}</span>)</p>
+	<a href='/logout'>Logout</a>
+</header>
+
+{% if admin == 1 %}
+<hr>
+
+<p>
+	<u>Create new user:</u>
+</p>
+<form action='/create_user' method='post'>
+	<input type='text' name='username' placeholder='Username' required>
+	<input type='password' name='password' placeholder='Password' required>
+	<button type='submit'>Create user</button>
+</form>
+{% endif %}
+
+<hr>
+
+<p>
+	<u>Upload files:</u>
+</p>
+<form id='form' action='/upload' method='post' enctype='multipart/form-data'>
+	<input type='file' id='file' name='file' multiple>
+	<button id='upload'>Upload files</button>
+</form>
+
+{% if files %}
+<hr>
+
+<p>
+	<u>Files:</u>
+</p>
+<div id='files'>
+	{% for file in files %}
+	<div class="file">
+		<a href='{{ file.url }}'>{{ file.filename }}</a>
+		<a href='/delete/{{ file.filename }}'>
+			X
+		</a>
+	</div>
+	{% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

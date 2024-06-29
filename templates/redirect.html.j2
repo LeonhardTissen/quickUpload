@@ -1,0 +1,24 @@
+{% extends "base.html.j2" %}
+
+{% block title %}Uploader - Redirect{% endblock %}
+
+{% block head %}
+<meta http-equiv='refresh' content='2;url=/dashboard'>
+{% endblock %}
+
+{% block content %}
+
+{% if username %}
+<p>You are logged in as
+	<span>
+		{{ username }}
+	</span>
+</p>
+{% endif %}
+
+{% if message %}
+<p>{{ message }}</p>
+{% endif %}
+
+<p>Redirecting...</p>
+{% endblock %}
