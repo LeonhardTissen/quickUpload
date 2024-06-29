@@ -85,6 +85,10 @@ header {
 #files .file {
 	display: flex;
 	justify-content: space-between;
+	background-color: #FFFFFF05;
+}
+#files .file:nth-child(even) {
+	background-color: #FFFFFF10;
 }
 .user p {
 	text-align: left;
