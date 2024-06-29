@@ -9,7 +9,6 @@ PORT = 5776
 @app.route('/', methods=['GET', 'POST'])
 def index():
 	users = get_users()
-	print(users)
 	
 	if request.method == 'POST':
 		username = request.form['username']
@@ -57,7 +56,6 @@ def dashboard():
 						'filename': file,
 						'url': f'/{username}/{file}'
 					})
-				print(username, files, admin)
 				return render_template('dashboard.html.j2', username=username, id=id, files=files, admin=admin)
 
 	return redirect('/')
