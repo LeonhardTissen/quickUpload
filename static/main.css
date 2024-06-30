@@ -38,7 +38,7 @@ main {
 	box-shadow: 5px 5px 30px var(--color-low);
 	padding: 20px;
 	width: clamp(300px, 80%, 600px);
-	max-height: 100svh;
+	max-height: calc(100svh - 50px);
 	overflow-y: auto;
 	border: 2px var(--color) solid;
 }

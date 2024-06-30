@@ -49,7 +49,6 @@ def upload():
 
 		while os.path.exists(location):
 			filename = add_number(filename)
-			print(filename)
 			location = f'{directory}/{filename}'
 			
 		file.save(location)
