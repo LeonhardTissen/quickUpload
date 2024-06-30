@@ -1,13 +1,13 @@
 from __main__ import app
 from flask import request, render_template, make_response
-from utils.db import get_users
+from utils.db import db
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
 	if request.method == 'GET':
 		return render_template('login.html.j2')
 	
-	users = get_users()
+	users = db.get_users()
 
 	username = request.form['username']
 	password = request.form['password']

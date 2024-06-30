@@ -1,7 +1,6 @@
-from utils.db import get_users
+from utils.db import db
 
 def get_user(request):
-	users = get_users()
 
 	cookies = request.cookies
 
@@ -10,12 +9,14 @@ def get_user(request):
 		return None
 
 	username = cookies['username']
-	# User exists in database
-	if username in users:
-		user = users[username]
-		# Password is correct
-		if user['password'] == cookies['password']:
-			return user
+	
+	user = db.get_user(username)
+	if not user:
+		return None
+	
+	# Password is correct
+	if user['password'] == cookies['password']:
+		return user
 	
 	return None
 

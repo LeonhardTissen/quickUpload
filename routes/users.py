@@ -1,7 +1,7 @@
 from __main__ import app
 from flask import render_template, request, redirect
 from utils.user import get_user
-from utils.db import get_users
+from utils.db import db
 
 @app.route('/users')
 def users():
@@ -12,7 +12,7 @@ def users():
 	
 	username, id = user['username'], user['id']
 
-	users = get_users()
+	users = db.get_users()
 	
 	users_list = []
 	for user in users:

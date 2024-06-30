@@ -1,6 +1,6 @@
 from __main__ import app
 from flask import request, render_template, redirect
-from utils.db import add_user
+from utils.db import db
 from utils.user import is_valid_user, is_admin
 
 @app.route('/create_user', methods=['POST'])
@@ -11,7 +11,7 @@ def create_user():
 	new_username = request.form['username']
 	new_password = request.form['password']
 	try:
-		add_user(new_username, new_password)
+		db.add_user(new_username, new_password)
 	except:
 		return render_template('redirect.html.j2', message='User already exists', redirect='/users')
 	
