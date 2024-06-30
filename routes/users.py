@@ -27,4 +27,5 @@ def users():
 		size = (os.popen(f'du -sh {dir}/uploads/{user}').read().split('\t')[0] or '0').lower() + 'b'
 		user_obj['size'] = size 
 		users_list.append(user_obj)
+	print(f"{username} accessed the users page")
 	return render_template('users.html.j2', users=users_list, username=username, id=id)

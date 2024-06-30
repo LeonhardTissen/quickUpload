@@ -17,6 +17,7 @@ class Database:
         c.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, admin INTEGER)')
         conn.commit()
         conn.close()
+        print('created table users')
 
     def clean_username(self, username):
         username = username.strip().lower()
@@ -32,6 +33,7 @@ class Database:
         except sqlite3.IntegrityError:
             raise sqlite3.IntegrityError
         conn.close()
+        print(f'added user {username}')
 
     def get_users(self):
         conn = sqlite3.connect(self.db_name)

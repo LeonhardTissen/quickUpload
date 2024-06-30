@@ -11,5 +11,7 @@ def delete(filename):
 		return redirect('/')
 
 	username = user['username']
-	os.remove(f'uploads/{username}/{filename}')
+	path = f'uploads/{username}/{filename}'
+	os.remove(path)
+	print(f'{username} deleted {path}')
 	return redirect('/dashboard')

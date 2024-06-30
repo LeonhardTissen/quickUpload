@@ -8,6 +8,7 @@ THREADS = 4
 DEBUG = sys.argv[1] == 'debug' if len(sys.argv) > 1 else False
 
 from routes import index, login, logout, dashboard, delete, create_user, upload, file, users
+from utils import beforerequest
 
 if __name__ == '__main__':
 	if DEBUG:

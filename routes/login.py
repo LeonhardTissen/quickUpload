@@ -13,14 +13,17 @@ def login():
 	password = request.form['password']
 
 	if not username in users:
+		print(f'attempted login with invalid username {username}')
 		return render_template('login.html.j2', message='User does not exist')
 	
 	user = users[username]
 	if user['password'] != password:
+		print(f'{username} attempted login with invalid password')
 		return render_template('login.html.j2', message='Invalid username or password')
 	
 	response = make_response(render_template('redirect.html.j2', username=username, redirect='/dashboard'))
 	response.set_cookie('username', username)
 	response.set_cookie('password', password)
+	print(f'{username} logged in')
 	return response
 

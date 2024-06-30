@@ -52,5 +52,6 @@ def upload():
 			location = f'{directory}/{filename}'
 			
 		file.save(location)
+		print(f'{username} uploaded {location}')
 	
 	return redirect('/dashboard')
