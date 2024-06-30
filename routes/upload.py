@@ -4,7 +4,7 @@ import os
 from utils.user import get_user
 
 def is_valid_character(c):
-	return c.isalnum() or c == '.' or c == '_'
+	return c.isalnum() or c == '.'
 
 def clean_filename(filename):
 	only_alphanumeric = ''.join(c for c in filename if is_valid_character(c)).strip()
