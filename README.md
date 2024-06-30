@@ -7,8 +7,7 @@ quickUpload is a simple Flask-based web application that allows users to upload,
 1. Clone the repository:
 
 ```sh
-git clone https://github.com/LeonhardTissen/quickUpload.git
-cd quickUpload
+git clone https://github.com/LeonhardTissen/quickUpload.git && cd quickUpload
 ```
 
 2. Install the required packages:
