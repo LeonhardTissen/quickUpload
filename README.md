@@ -19,10 +19,10 @@ pip3 install -r requirements.txt
 
 ## Usage
 
-1. Run the application:
+1. Run the application in debug mode
 
 ```sh
-python3 sites.py
+python3 sites.py debug
 ```
 
 2. Enter Admin credentials
@@ -31,6 +31,12 @@ python3 sites.py
 > Only the admin can create new users
 
 3. Navigate to `http://localhost:5776/` in your web browser
+
+4. Run the application in production mode
+
+```sh
+python3 sites.py
+```
 
 ## License
 

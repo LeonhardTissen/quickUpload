@@ -1,29 +1,18 @@
 from __main__ import app
 from flask import request, render_template, redirect
-from db import get_users
 import os
+from utils.db import get_users
+from utils.user import get_user
 
 @app.route('/dashboard')
 def dashboard():
-	users = get_users()
+	user = get_user(request)
 
-	cookies = request.cookies
+	if not user:
+		redirect('/')
 
-	if 'username' in cookies:
-		username = cookies['username']
-		if username in users:
-			user = users[username]
-			if user['password'] == cookies['password']:
-				admin = user['admin']
-				id = user['id']
-				os.makedirs(f'uploads/{username}', exist_ok=True)
-				filelist = os.listdir(f'uploads/{username}')
-				files = []
-				for file in filelist:
-					files.append({
-						'filename': file,
-						'url': f'/{username}/{file}'
-					})
-				return render_template('dashboard.html.j2', username=username, id=id, files=files, admin=admin)
-
-	return redirect('/')
+	username, admin, id = user['username'], user['admin'], user['id']
+	os.makedirs(f'uploads/{username}', exist_ok=True)
+	filelist = os.listdir(f'uploads/{username}')
+	files = [{'filename': file, 'url': f'/{username}/{file}'} for file in filelist]
+	return render_template('dashboard.html.j2', username=username, id=id, files=files, admin=admin)

@@ -1,20 +1,15 @@
 from __main__ import app
 from flask import request, redirect
-from db import get_users
 import os
+from utils.user import get_user
 
 @app.route('/delete/<filename>', methods=['GET'])
 def delete(filename):
-	users = get_users()
+	user = get_user(request)
 
-	cookies = request.cookies
+	if not user:
+		return redirect('/')
 
-	if 'username' in cookies:
-		username = cookies['username']
-		if username in users:
-			user = users[username]
-			if user['password'] == cookies['password']:
-				os.remove(f'uploads/{username}/{filename}')
-				return redirect('/dashboard')
-
-	return redirect('/')
+	username = user['username']
+	os.remove(f'uploads/{username}/{filename}')
+	return redirect('/dashboard')

@@ -32,6 +32,7 @@ def get_users():
 	conn.close()
 	return {username: {
 		'id': id,
+		'username': username,
 		'password': password,
 		'admin': admin
 	} for id, username, password, admin in users}

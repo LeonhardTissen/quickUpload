@@ -2,8 +2,8 @@
 
 {% block title %}Uploader - Redirect{% endblock %}
 
-{% block head %}
-<meta http-equiv='refresh' content='2;url=/dashboard'>
+{% block redirect %}
+<meta http-equiv='refresh' content='2;url={{ redirect }}'>
 {% endblock %}
 
 {% block content %}
@@ -20,5 +20,7 @@
 <p>{{ message }}</p>
 {% endif %}
 
-<p>Redirecting...</p>
+<p>
+	<a href='{{ redirect }}'>Redirecting..</a>
+</p>
 {% endblock %}

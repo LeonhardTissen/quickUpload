@@ -1,6 +1,6 @@
 from __main__ import app
 from flask import request, render_template, make_response
-from db import get_users
+from utils.db import get_users
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -12,12 +12,15 @@ def login():
 	username = request.form['username']
 	password = request.form['password']
 
-	if username in users:
-		user = users[username]
-		if user['password'] == password:
-			response = make_response(render_template('redirect.html.j2', username=username))
-			response.set_cookie('username', username)
-			response.set_cookie('password', password)
-			return response
+	if not username in users:
+		return render_template('login.html.j2', message='User does not exist')
+	
+	user = users[username]
+	if user['password'] != password:
+		return render_template('login.html.j2', message='Invalid username or password')
+	
+	response = make_response(render_template('redirect.html.j2', username=username, redirect='/dashboard'))
+	response.set_cookie('username', username)
+	response.set_cookie('password', password)
+	return response
 
-	return render_template('login.html.j2', message='Invalid username or password')

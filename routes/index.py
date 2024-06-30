@@ -1,18 +1,13 @@
 from __main__ import app
 from flask import request, redirect
-from db import get_users
+from utils.user import get_user
 
 @app.route('/', methods=['GET'])
 def index():
-	users = get_users()
-	
-	cookies = request.cookies
+	user = get_user(request)
 
-	if 'username' in cookies:
-		username = cookies['username']
-		if username in users:
-			user = users[username]
-			if user['password'] == cookies['password']:
-				return redirect('/dashboard')
-	
+	if user:
+		return redirect('/dashboard')
+
 	return redirect('/login')
+	
