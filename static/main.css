@@ -18,6 +18,11 @@ body {
 	height: 100vh;
 	animation: bgscroll 6s linear infinite;
 }
+button {
+	background-color: transparent;
+	border: none;
+	cursor: pointer;
+}
 @keyframes bgscroll {
 	from {
 		background-position: 0 0;
@@ -89,6 +94,18 @@ header {
 }
 #files .file:nth-child(even) {
 	background-color: #FFFFFF10;
+}
+#files .file .actions {
+	display: flex;
+	gap: 5px;
+	justify-content: space-between;
+	align-items: center;
+}
+.actions a,
+.actions button {
+	display: flex;
+	align-items: center;
+	color: var(--color);
 }
 .user p {
 	text-align: left;

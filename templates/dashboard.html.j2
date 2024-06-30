@@ -32,12 +32,28 @@
 	{% for file in files %}
 	<div class="file">
 		<a href='{{ file.url }}'>{{ file.filename }}</a>
-		<a href='/delete/{{ file.filename }}'>
-			X
-		</a>
+		<div class="actions">
+			<button onclick="copyToClipboard('{{ file.url }}')">
+				{% include 'svg/copy.svg' %}
+			</button>
+			<a href='/delete/{{ file.filename }}'>
+				{% include 'svg/trash.svg' %}
+			</a>
+		</div>
 	</div>
 	{% endfor %}
 </div>
+<script>
+	function copyToClipboard(filename) {
+		const text = window.location.origin + filename;
+		const el = document.createElement('textarea');
+		el.value = text;
+		document.body.appendChild(el);
+		el.select();
+		document.execCommand('copy');
+		document.body.removeChild(el);
+	}
+</script>
 {% endif %}
 
 {% endblock %}

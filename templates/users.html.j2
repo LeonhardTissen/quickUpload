@@ -23,11 +23,16 @@
 
 <hr>
 
+<p>
+	<u>Users:</u>
+</p>
 {% for user in users %}
 <div id="users">
 	<div class="user">
 		<p>
-			<span>{{ user.username }}</span> (ID: <span>{{ user.id }}</span>)
+			<span>{{ user.username }}</span>
+			(ID: <span>{{ user.id }}</span>)
+			(Size: <span>{{ user.size }}</span>)
 			{% if user.admin == 1 %}
 			<span>Admin</span>
 			{% endif %}
