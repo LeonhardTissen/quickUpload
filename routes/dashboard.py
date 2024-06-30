@@ -8,7 +8,7 @@ def dashboard():
 	user = get_user(request)
 
 	if not user:
-		redirect('/')
+		return redirect('/')
 
 	username, admin, id = user['username'], user['admin'], user['id']
 	os.makedirs(f'uploads/{username}', exist_ok=True)

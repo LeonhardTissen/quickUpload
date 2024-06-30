@@ -32,7 +32,7 @@ main {
 	border-radius: 5px;
 	box-shadow: 5px 5px 30px var(--color-low);
 	padding: 20px;
-	width: 300px;
+	width: clamp(300px, 80%, 600px);
 	border: 2px var(--color) solid;
 }
 form {
