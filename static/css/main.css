@@ -42,33 +42,6 @@ main {
 	overflow-y: auto;
 	border: 2px var(--color) solid;
 }
-form {
-	display: flex;
-	flex-direction: column;
-	gap: 10px;
-}
-form input[type="text"], form input[type="password"] {
-	padding: 5px;
-	border: 1px solid #FFF;
-	border-radius: 5px;
-	font-size: 125%;
-	background-color: transparent;
-	color: white;
-}
-form input[type="file"] {
-	font-size: 125%;
-}
-form button {
-	padding: 5px;
-	border: 1px solid #FFF;
-	border-radius: 5px;
-	font-size: 125%;
-	background-color: transparent;
-	color: white;
-	cursor: pointer;
-	background: linear-gradient(200deg, #FFF1, #FFF4);
-	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
-}
 p {
 	text-align: center;
 	margin: 0;
@@ -84,31 +57,4 @@ u {
 header {
 	display: flex;
 	justify-content: space-between;
-}
-#files {
-	display: flex;
-	flex-direction: column;
-}
-#files .file {
-	display: flex;
-	justify-content: space-between;
-	background-color: #FFFFFF05;
-}
-#files .file:nth-child(even) {
-	background-color: #FFFFFF10;
-}
-#files .file .actions {
-	display: flex;
-	gap: 5px;
-	justify-content: space-between;
-	align-items: center;
-}
-.actions a,
-.actions button {
-	display: flex;
-	align-items: center;
-	color: var(--color);
-}
-.user p {
-	text-align: left;
 }

@@ -1,0 +1,24 @@
+#files {
+	display: flex;
+	flex-direction: column;
+}
+#files .file {
+	display: flex;
+	justify-content: space-between;
+	background-color: #FFFFFF05;
+}
+#files .file:nth-child(even) {
+	background-color: #FFFFFF10;
+}
+#files .file .actions {
+	display: flex;
+	gap: 5px;
+	justify-content: space-between;
+	align-items: center;
+}
+#files .file .actions a,
+#files .file .actions button {
+	display: flex;
+	align-items: center;
+	color: var(--color);
+}

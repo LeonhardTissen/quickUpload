@@ -1,0 +1,27 @@
+form {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+form input[type="text"], form input[type="password"] {
+	padding: 5px;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	font-size: 125%;
+	background-color: transparent;
+	color: white;
+}
+form input[type="file"] {
+	font-size: 125%;
+}
+form button {
+	padding: 5px;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	font-size: 125%;
+	background-color: transparent;
+	color: white;
+	cursor: pointer;
+	background: linear-gradient(200deg, #FFF1, #FFF4);
+	box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1);
+}
