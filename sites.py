@@ -1,7 +1,10 @@
 from flask import Flask
+from flask_minify import Minify
+
 import sys
 
 app = Flask(__name__)
+Minify(app=app, html=True, js=True, cssless=True)
 HOST = '0.0.0.0'
 PORT = 5776
 THREADS = 4

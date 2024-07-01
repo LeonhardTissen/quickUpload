@@ -4,8 +4,10 @@
 
 {% block content %}
 
-<link rel='stylesheet' type='text/css' href='/static/css/form.css'>
-<link rel='stylesheet' type='text/css' href='/static/css/users.css'>
+<style>
+	{% include '/css/form.css' %}
+	{% include '/css/users.css' %}
+</style>
 
 <header>
 	<p><span>{{ username }}</span> (ID: <span>{{ id }}</span>)</p>

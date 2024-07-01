@@ -1,3 +1,4 @@
 flask
+flask_minify
 sqlite3
 waitress
