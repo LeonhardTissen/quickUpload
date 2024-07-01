@@ -7,14 +7,21 @@ class Database:
         
         if not os.path.exists(self.db_name):
             self.create_table()
-            admin = input('Enter admin username: ')
+            username = input('Enter admin username: ')
             password = input('Enter admin password: ')
-            self.add_user(admin, password, 1)
+            self.add_user(username, password, 1)
 
     def create_table(self):
         conn = sqlite3.connect(self.db_name)
         c = conn.cursor()
-        c.execute('CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT UNIQUE, password TEXT, admin INTEGER)')
+        c.execute('''
+            CREATE TABLE users (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE,
+                password TEXT,
+                admin INTEGER
+            )
+        ''')
         conn.commit()
         conn.close()
         print('created table users')
@@ -38,7 +45,7 @@ class Database:
     def get_users(self):
         conn = sqlite3.connect(self.db_name)
         c = conn.cursor()
-        c.execute('SELECT * FROM users')
+        c.execute('SELECT id, username, password, admin FROM users')
         users = c.fetchall()
         conn.close()
         return {username: {
@@ -51,23 +58,17 @@ class Database:
     def get_user(self, username):
         conn = sqlite3.connect(self.db_name)
         c = conn.cursor()
-        c.execute('SELECT * FROM users WHERE username=?', (username,))
+        c.execute('SELECT id, username, password, admin FROM users WHERE username=?', (username,))
         user = c.fetchone()
         conn.close()
         if user:
+            id, username, password, admin = user
             return {
-                'id': user[0],
-                'username': user[1],
-                'password': user[2],
-                'admin': user[3]
+                'id': id,
+                'username': username,
+                'password': password,
+                'admin': admin
             }
         return None
-
-    def init(self):
-        if not os.path.exists(self.db_name):
-            self.create_table()
-            admin = input('Enter admin username: ')
-            password = input('Enter admin password: ')
-            self.add_user(admin, password, 1)
 
 db = Database()
