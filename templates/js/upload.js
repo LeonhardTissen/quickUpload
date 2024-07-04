@@ -17,29 +17,43 @@ document.body.addEventListener('drop', (e) => {
 
 uploadInput.addEventListener('input', upload);
 
-function upload() {
-	// Post request to /upload
+async function uploadFile(file, filename) {
 	const formData = new FormData();
-	// Add all files
-	for (const file of uploadInput.files) {
+	console.log(file, filename);
+	formData.append('file', file, filename);
+
+	await fetch('/upload', {
+		method: 'POST',
+		body: formData,
+	});
+}
+
+async function sendCombinerRequest() {
+	await fetch('/combine', {
+		method: 'POST',
+	});
+}
+
+async function upload() {
+	let hasLargeFiles = false;
+	for await (const file of uploadInput.files) {
 		if (file.size > 100 * 1024 * 1024) {
-			// If over 100MB, split into chunks
+			hasLargeFiles = true;
+
 			const fileCount = Math.ceil(file.size / (100 * 1024 * 1024));
 			const chunkSize = Math.ceil(file.size / fileCount);
 
 			for (let i = 0; i < fileCount; i++) {
 				const chunk = file.slice(i * chunkSize, (i + 1) * chunkSize);
-				formData.append('file', chunk, file.name + '.part' + i);
+				console.log(file.name);
+				await uploadFile(chunk, `${file.name}.part${i + 1}`);
 			}
 		} else {
-			formData.append('file', file);
+			await uploadFile(file);
 		}
 	}
 
-	fetch('/upload', {
-		method: 'POST',
-		body: formData,
-	}).then(() => {
-		location.reload();
-	});
+	if (hasLargeFiles) await sendCombinerRequest();
+
+	location.reload();
 }
