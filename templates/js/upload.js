@@ -19,6 +19,13 @@ document.body.addEventListener('drop', (e) => {
 	upload();
 });
 
+// Prevent closing the tab when uploading
+window.addEventListener('beforeunload', (e) => {
+	if (uploadLock) {
+		e.preventDefault();
+	}
+});
+
 uploadInput.addEventListener('input', upload);
 
 async function uploadFile(file, filename) {
@@ -37,7 +44,7 @@ async function sendCombinerRequest() {
 	});
 }
 
-const maxChunkSize = 5 * 1024 * 1024;
+const maxChunkSize = 20 * 1024 * 1024;
 
 let chunksFinished = 0;
 let totalChunks = 0;
@@ -96,5 +103,7 @@ async function upload() {
 
 	if (hasLargeFiles) await sendCombinerRequest();
 
+	uploadLock = false;
+	
 	location.reload();
 }
