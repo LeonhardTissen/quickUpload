@@ -1,7 +1,11 @@
 const uploadButton = document.getElementById('uploadbutton');
 const uploadInput = document.getElementById('file');
 
+let uploadLock = false;
+
 uploadButton.addEventListener('click', () => {
+	if (uploadLock) return;
+
 	uploadInput.click();
 });
 
@@ -19,7 +23,6 @@ uploadInput.addEventListener('input', upload);
 
 async function uploadFile(file, filename) {
 	const formData = new FormData();
-	console.log(file, filename);
 	formData.append('file', file, filename);
 
 	await fetch('/upload', {
@@ -34,22 +37,60 @@ async function sendCombinerRequest() {
 	});
 }
 
+const maxChunkSize = 5 * 1024 * 1024;
+
+let chunksFinished = 0;
+let totalChunks = 0;
+
+function addFinishedChunk() {
+	chunksFinished++;
+	updateText();
+}
+
+function updateText() {
+	let percentage = Math.round((chunksFinished / totalChunks) * 100);
+	if (isNaN(percentage)) percentage = 0;
+	uploadButton.innerText = `Uploading... (${percentage}%)`;
+	uploadButton.style.background = `linear-gradient(
+		90deg,
+		var(--color-low) ${percentage}%,
+		#FFF4 ${percentage}%
+	)`;
+}
+
 async function upload() {
+	if (uploadLock) return;
+	uploadLock = true;
+
+	const files = uploadInput.files;
+
+	updateText();
+
+	for await (const file of files) {
+		if (file.size > maxChunkSize) {
+			const fileCount = Math.ceil(file.size / maxChunkSize);
+			totalChunks += fileCount;
+		} else {
+			totalChunks++;
+		}
+	}
+
 	let hasLargeFiles = false;
-	for await (const file of uploadInput.files) {
-		if (file.size > 100 * 1024 * 1024) {
+	for await (const file of files) {
+		if (file.size > maxChunkSize) {
 			hasLargeFiles = true;
 
-			const fileCount = Math.ceil(file.size / (100 * 1024 * 1024));
+			const fileCount = Math.ceil(file.size / maxChunkSize);
 			const chunkSize = Math.ceil(file.size / fileCount);
 
 			for (let i = 0; i < fileCount; i++) {
 				const chunk = file.slice(i * chunkSize, (i + 1) * chunkSize);
-				console.log(file.name);
 				await uploadFile(chunk, `${file.name}.part${i + 1}`);
+				addFinishedChunk();
 			}
 		} else {
 			await uploadFile(file);
+			addFinishedChunk();
 		}
 	}
 
