@@ -12,9 +12,10 @@ form input[type="text"], form input[type="password"] {
 	color: white;
 }
 form input[type="file"] {
-	font-size: 125%;
+	display: none;
 }
-form button {
+form button, #uploadbutton {
+	width: 100%;
 	padding: 5px;
 	border: 1px solid #FFF;
 	border-radius: 5px;
