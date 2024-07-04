@@ -22,10 +22,10 @@
 <p>
 	<u>Upload files:</u>
 </p>
-<form id='form' action='/upload' method='post' enctype='multipart/form-data'>
-	<input type='file' id='file' name='file' multiple>
-	<button id='upload'>Upload files</button>
-</form>
+<button id="uploadbutton">
+	Select files
+</button>
+<input type='file' id='file' name='file' multiple style="display: none">
 
 {% if files %}
 <hr>
@@ -49,15 +49,8 @@
 	{% endfor %}
 </div>
 <script>
-	function copyToClipboard(filename) {
-		const text = window.location.origin + filename;
-		const el = document.createElement('textarea');
-		el.value = text;
-		document.body.appendChild(el);
-		el.select();
-		document.execCommand('copy');
-		document.body.removeChild(el);
-	}
+	{% include '/js/copy.js' %}
+	{% include '/js/upload.js' %}
 </script>
 {% endif %}
 
