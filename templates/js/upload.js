@@ -44,7 +44,7 @@ async function sendCombinerRequest() {
 	});
 }
 
-const maxChunkSize = 20 * 1024 * 1024;
+let maxChunkSize = 80 * 1024 * 1024; // 80MB
 
 let chunksFinished = 0;
 let totalChunks = 0;
@@ -104,6 +104,6 @@ async function upload() {
 	if (hasLargeFiles) await sendCombinerRequest();
 
 	uploadLock = false;
-	
+
 	location.reload();
 }
